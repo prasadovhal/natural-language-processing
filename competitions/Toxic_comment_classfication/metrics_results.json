@@ -1,0 +1,76 @@
+[
+  {
+    "model": "TF-IDF + LogisticRegression (OvR)",
+    "approach": "main.py",
+    "roc_auc_macro": 0.9664,
+    "f1_macro": 0.3481,
+    "train_time_sec": 255
+  },
+  {
+    "model": "TF-IDF + LinearSVC (OvR)",
+    "approach": "main.py",
+    "roc_auc_macro": 0.9657,
+    "f1_macro": 0.4804,
+    "train_time_sec": 51
+  },
+  {
+    "model": "TF-IDF + DecisionTree (OvR)",
+    "approach": "main.py",
+    "roc_auc_macro": 0.7993,
+    "f1_macro": 0.3516,
+    "train_time_sec": 405
+  },
+  {
+    "model": "TF-IDF + LogReg per-label (3-fold CV)",
+    "approach": "third_approch.py",
+    "roc_auc_macro": 0.9786,
+    "cv_auc_toxic": 0.9696,
+    "cv_auc_severe_toxic": 0.9849,
+    "cv_auc_obscene": 0.9841,
+    "cv_auc_threat": 0.9822,
+    "cv_auc_insult": 0.9759,
+    "cv_auc_identity_hate": 0.9751
+  },
+  {
+    "model": "TF-IDF + MultinomialNB (OvR)",
+    "approach": "third_approch.py",
+    "roc_auc_macro": 0.9084,
+    "f1_macro": 0.2775,
+    "train_time_sec": 0
+  },
+  {
+    "model": "TF-IDF + RandomForest (OvR)",
+    "approach": "third_approch.py",
+    "roc_auc_macro": 0.9536,
+    "f1_macro": 0.3986,
+    "train_time_sec": 1133
+  },
+  {
+    "model": "TF-IDF + XGBoost Binary Relevance",
+    "approach": "my_approach_2.py / my_approch.py",
+    "roc_auc_macro": 0.9002,
+    "auc_toxic": 0.8704,
+    "auc_severe_toxic": 0.9254,
+    "auc_obscene": 0.9,
+    "auc_threat": 0.9133,
+    "auc_insult": 0.8883,
+    "auc_identity_hate": 0.9037
+  },
+  {
+    "model": "TF-IDF (5K) + PyTorch MLP (5 epochs)",
+    "accuracy": 0.888,
+    "f1_macro": 0.3804,
+    "f1_micro": 0.6413,
+    "precision_macro": 0.4057,
+    "recall_macro": 0.3899,
+    "roc_auc_macro": 0.9665,
+    "hamming_loss": 0.0282,
+    "train_time_sec": 171.3,
+    "auc_toxic": 0.9558,
+    "auc_severe_toxic": 0.9819,
+    "auc_obscene": 0.969,
+    "auc_threat": 0.9689,
+    "auc_insult": 0.9609,
+    "auc_identity_hate": 0.9627
+  }
+]

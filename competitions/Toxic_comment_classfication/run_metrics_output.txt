@@ -1,0 +1,65 @@
+Loading data...
+  Train: 159,571 rows | Test: 63,978 rows
+Preprocessing text (may take ~10 min for 561K rows)...
+  Done in 1.3 min
+Fitting TF-IDF vectorizer (unigrams + bigrams, 50K features)...
+  Done in 41.2s  |  shape: (159571, 50000)
+
+============================================================
+APPROACH 1  |  TF-IDF + OneVsRest  (main.py)
+============================================================
+  Training TF-IDF + LogisticRegression (OvR)...
+    ROC-AUC: 0.9664  |  F1-macro: 0.3481  |  255s
+  Training TF-IDF + LinearSVC (OvR)...
+    ROC-AUC: 0.9657  |  F1-macro: 0.4804  |  51s
+  Training TF-IDF + DecisionTree (OvR)...
+    ROC-AUC: 0.7993  |  F1-macro: 0.3516  |  405s
+
+============================================================
+APPROACH 2  |  Per-label TF-IDF + LogReg / NB with CV  (third_approch.py)
+============================================================
+  LogisticRegression 3-fold CV per label...
+    toxic: 0.9696  ±0.0014
+    severe_toxic: 0.9849  ±0.0009
+    obscene: 0.9841  ±0.0020
+    threat: 0.9822  ±0.0020
+    insult: 0.9759  ±0.0004
+    identity_hate: 0.9751  ±0.0008
+  Mean CV ROC-AUC: 0.9786
+  Training MultinomialNB (OvR)...
+    ROC-AUC: 0.9084  |  F1-macro: 0.2775  |  0s
+  Training RandomForest (OvR, 100 trees)...
+    ROC-AUC: 0.9536  |  F1-macro: 0.3986  |  1133s
+
+============================================================
+APPROACH 3  |  TF-IDF + XGBoost Binary Relevance  (my_approach_2.py / my_approch.py)
+============================================================
+  Using device: cuda
+  XGBoost for 'toxic'...
+    ROC-AUC: 0.8704  (177s)
+  XGBoost for 'severe_toxic'...
+    ROC-AUC: 0.9254  (144s)
+  XGBoost for 'obscene'...
+    ROC-AUC: 0.9000  (166s)
+  XGBoost for 'threat'...
+    ROC-AUC: 0.9133  (139s)
+  XGBoost for 'insult'...
+    ROC-AUC: 0.8883  (171s)
+  XGBoost for 'identity_hate'...
+    ROC-AUC: 0.9037  (151s)
+  Mean XGBoost ROC-AUC: 0.9002
+
+============================================================
+APPROACH 4  |  PyTorch MLP on TF-IDF features  (my_approach_3.py variant)
+============================================================
+  Building compact 5K-feature TF-IDF for neural approach...
+  Device: cuda
+  Training MLP for 5 epochs...
+Traceback (most recent call last):
+  File "D:\Study\ML\NLP\competitions\Toxic_comment_classfication\run_metrics.py", line 350, in <module>
+    print(f"    Epoch {epoch}/{EPOCHS}  loss={epoch_loss/len(X_tr_nn):.4f}")
+                                                         ~~~^^^^^^^^^
+  File "C:\Users\prasad_ovhal\AppData\Roaming\Python\Python314\site-packages\scipy\sparse\_base.py", line 448, in __len__
+    raise TypeError("sparse array length is ambiguous; use getnnz()"
+                    " or shape[0]")
+TypeError: sparse array length is ambiguous; use getnnz() or shape[0]
